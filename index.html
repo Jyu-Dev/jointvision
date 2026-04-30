@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navbar CSS Fixer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface2: #1e2126;
+    --border: #2a2d34;
+    --border2: #353941;
+    --text: #eceef2;
+    --text2: #8b8f9a;
+    --text3: #555962;
+    --accent: #4f9cf9;
+    --accent-dim: #1a3352;
+    --green: #34d399;
+    --green-dim: #0d2b1f;
+    --red: #f87171;
+    --red-dim: #2b0f0f;
+    --amber: #fbbf24;
+    --amber-dim: #2b1f08;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    background: rgba(14,15,17,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid #2a4a6e;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #eceef2 0%, #8b8f9a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ── TEXTAREA ── */
+  textarea {
+    width: 100%;
+    min-height: 200px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text);
+    resize: vertical;
+    line-height: 1.7;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  textarea::placeholder { color: var(--text3); }
+  textarea:focus { border-color: var(--border2); }
+
+  /* ── DETECTED FRAMEWORK ── */
+  .detected-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text2);
+    min-height: 26px;
+  }
+  .fw-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .fw-tag.bootstrap { background: #2d1f4a; color: #c084fc; border-color: #4a2d7a; }
+  .fw-tag.tailwind  { background: #0d2533; color: #38bdf8; border-color: #1a4a6e; }
+  .fw-tag.bulma     { background: #1a2d1a; color: #4ade80; border-color: #2a4a2a; }
+  .fw-tag.custom    { background: var(--accent-dim); color: var(--accent); border-color: #2a4a6e; }
+  .fw-tag.plain     { background: var(--surface2); color: var(--text2); border-color: var(--border); }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  button:hover { background: var(--border); }
+  button:active { transform: scale(0.98); }
+  button.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  button.primary:hover { background: #6aaefa; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ── STATUS ── */
+  .status {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .status.visible { display: flex; }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+  }
+  .dot.loading { background: var(--accent); animation: pulse 1s infinite; }
+  .dot.done    { background: var(--green); }
+  .dot.error   { background: var(--red); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  /* ── RESULTS ── */
+  #results-card { display: none; }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .tab {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    color: var(--text2);
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .tab:last-child { border-right: none; }
+  .tab:hover { background: var(--surface2); color: var(--text); }
+  .tab.active { background: var(--accent); color: #fff; font-weight: 600; }
+
+  .output-block { display: none; }
+  .output-block.visible { display: block; }
+
+  /* ── ISSUES ── */
+  .issues-grid { display: grid; gap: 10px; }
+  .issue-item {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .issue-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .issue-title::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+  .issue-detail { color: var(--text2); font-size: 13px; }
+  .screens {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .screen-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    background: var(--bg);
+    font-family: 'DM Mono', monospace;
+  }
+  .tip-row {
+    font-size: 13px;
+    color: var(--text2);
+    padding: 10px 14px;
+    background: var(--green-dim);
+    border: 1px solid #1a4a35;
+    border-radius: var(--radius-sm);
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .no-issues {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--text2);
+  }
+  .no-issues .check { font-size: 36px; margin-bottom: 8px; color: var(--green); }
+
+  /* ── CODE BLOCKS ── */
+  pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 80px;
+  }
+
+  /* ── HOW TO USE ── */
+  .how-to {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+  .how-to h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 1rem;
+  }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .step strong { color: var(--text); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    header { padding: 0 1rem; }
+    main { padding: 2rem 1rem 4rem; }
+    .tabs { flex-wrap: wrap; }
+    .tab { flex: none; width: calc(50% - 0.5px); border-bottom: 1px solid var(--border); }
+    .tab:nth-child(odd) { border-right: 1px solid var(--border); }
+    .tab:nth-child(even) { border-right: none; }
+    .tab:last-child { border-bottom: none; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">
+    <div class="logo-icon">⚡</div>
+    NavFix
+  </a>
+  <span class="badge">AI-Powered</span>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Fix your navbar for every screen size</h1>
+    <p>Paste your website HTML and get clean, simplified CSS fixes for spacing, font sizes, logo sizing, and responsive breakpoints — compatible with your existing CSS framework.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">
+      <span>Your website HTML</span>
+      <button style="padding:3px 10px; font-size:11px;" onclick="loadSample()">Load sample</button>
+    </div>
+    <textarea id="html-input" placeholder="Paste your full HTML here — include the &lt;head&gt;, any &lt;style&gt; blocks, and your nav/header section..."></textarea>
+    <div class="detected-row" id="detected-row" style="display:none;">
+      <span style="font-size:12px;color:var(--text3);">Framework detected:</span>
+      <span id="framework-tag" class="fw-tag"></span>
+    </div>
+    <div class="btn-row">
+      <button class="primary" id="analyze-btn" onclick="analyze()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Analyze navbar
+      </button>
+      <button onclick="clearAll()">Clear</button>
+      <div class="status" id="status">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="results-card">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('issues')">Issues</button>
+      <button class="tab" onclick="switchTab('mobile')">Mobile CSS</button>
+      <button class="tab" onclick="switchTab('tablet')">Tablet CSS</button>
+      <button class="tab" onclick="switchTab('desktop')">Desktop CSS</button>
+      <button class="tab" onclick="switchTab('all')">Full CSS</button>
+    </div>
+
+    <div class="output-block visible" id="tab-issues">
+      <div class="issues-grid" id="issues-list"></div>
+    </div>
+    <div class="output-block" id="tab-mobile">
+      <pre id="css-mobile"></pre>
+      <div class="btn-row" style="margin-top:10px;"><button onclick="copyCSS('mobile')">Copy CSS</button></div>
+    </div>
+    <div class="output-block" id="tab-tablet">
+      <pre id="css-tablet"></pre>
+      <div class="btn-row" style="margin-top:10px;"><button onclick="copyCSS('tablet')">Copy CSS</button></div>
+    </div>
+    <div class="output-block" id="tab-desktop">
+      <pre id="css-desktop"></pre>
+      <div class="btn-row" style="margin-top:10px;"><button onclick="copyCSS('desktop')">Copy CSS</button></div>
+    </div>
+    <div class="output-block" id="tab-all">
+      <pre id="css-all"></pre>
+      <div class="btn-row" style="margin-top:10px;"><button onclick="copyCSS('all')">Copy full CSS</button></div>
+    </div>
+  </div>
+
+  <div class="how-to">
+    <h3>How it works</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p><strong>Paste your HTML</strong> — include your &lt;head&gt;, CSS links, and nav section</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p><strong>Click Analyze</strong> — AI detects your framework and scans for navbar issues</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p><strong>Copy the fix CSS</strong> — paste it into your stylesheet and you're done</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <p><strong>Check each breakpoint</strong> — mobile, tablet, and desktop fixes are separated</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Built with Claude AI &nbsp;·&nbsp; Paste HTML, get responsive navbar fixes instantly
+</footer>
+
+<script>
+const SAMPLE_HTML = `<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    .navbar-brand img { width: 180px; }
+    .nav-link { font-size: 16px; padding: 0 18px; }
+    .navbar { padding: 20px 40px; }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Our Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</body>
+</html>`;
+
+function detectFramework(html) {
+  if (/bootstrap/i.test(html)) return 'bootstrap';
+  if (/tailwind/i.test(html)) return 'tailwind';
+  if (/bulma/i.test(html)) return 'bulma';
+  if (/foundation/i.test(html)) return 'foundation';
+  if (/<style[\s\S]*?>[\s\S]*?<\/style>/i.test(html)) return 'custom';
+  return 'plain';
+}
+
+function showFrameworkTag(fw) {
+  const el = document.getElementById('framework-tag');
+  const labels = { bootstrap:'Bootstrap', tailwind:'Tailwind CSS', bulma:'Bulma', foundation:'Foundation', custom:'Custom CSS', plain:'Plain HTML' };
+  el.className = 'fw-tag ' + fw;
+  el.textContent = labels[fw] || fw;
+  document.getElementById('detected-row').style.display = 'flex';
+}
+
+function setStatus(state, text) {
+  const s = document.getElementById('status');
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if (!text) { s.classList.remove('visible'); return; }
+  s.classList.add('visible');
+  dot.className = 'dot ' + state;
+  txt.textContent = text;
+}
+
+function loadSample() {
+  document.getElementById('html-input').value = SAMPLE_HTML;
+  showFrameworkTag('bootstrap');
+}
+
+function clearAll() {
+  document.getElementById('html-input').value = '';
+  document.getElementById('detected-row').style.display = 'none';
+  document.getElementById('results-card').style.display = 'none';
+  setStatus('', '');
+}
+
+function switchTab(name) {
+  const tabNames = ['issues','mobile','tablet','desktop','all'];
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', tabNames[i] === name);
+  });
+  document.querySelectorAll('.output-block').forEach(b => b.classList.remove('visible'));
+  document.getElementById('tab-' + name).classList.add('visible');
+}
+
+async function analyze() {
+  const html = document.getElementById('html-input').value.trim();
+  if (!html) { alert('Please paste your HTML first.'); return; }
+
+  const fw = detectFramework(html);
+  showFrameworkTag(fw);
+
+  const btn = document.getElementById('analyze-btn');
+  btn.disabled = true;
+  setStatus('loading', 'Analyzing navbar...');
+  document.getElementById('results-card').style.display = 'none';
+
+  const prompt = `You are a CSS expert. Analyze this website HTML and identify ALL navbar/navigation problems: text overflow, overlapping elements, incorrect logo size, bad spacing, and poor responsiveness at mobile (≤576px), tablet (577px–991px), and desktop (≥992px).
+
+HTML:
+\`\`\`html
+${html.substring(0, 8000)}
+\`\`\`
+
+Detected CSS framework: ${fw}
+
+Return ONLY a JSON object (no markdown, no backticks, no preamble) in this exact format:
+{
+  "framework": "${fw}",
+  "issues": [
+    {"title": "short issue name", "detail": "specific explanation of what is wrong and why", "screens": ["mobile","tablet","desktop"]}
+  ],
+  "mobile_css": "/* Mobile ≤576px */\\n@media (max-width: 576px) {\\n  /* selectors here */\\n}",
+  "tablet_css": "/* Tablet 577px–991px */\\n@media (min-width: 577px) and (max-width: 991px) {\\n  /* selectors here */\\n}",
+  "desktop_css": "/* Desktop ≥992px */\\n@media (min-width: 992px) {\\n  /* selectors here */\\n}",
+  "notes": "one sentence tip about the most impactful fix"
+}
+
+CSS output rules:
+- Only target navbar/nav elements
+- Use actual selectors found in the HTML
+- Keep CSS minimal — only properties needed to fix the issue
+- Logo: set max-width and height: auto
+- Nav text: set font-size, white-space if needed
+- Spacing: use padding/gap fixes
+- Bootstrap: use compatible overrides
+- Tailwind: add utility class suggestions as CSS comments`;
+
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error?.message || 'API error ' + resp.status);
+    }
+
+    const data = await resp.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+
+    let result;
+    try {
+      result = JSON.parse(clean);
+    } catch(e) {
+      const match = clean.match(/\{[\s\S]*\}/);
+      if (match) result = JSON.parse(match[0]);
+      else throw new Error("Could not parse AI response. Try again.");
+    }
+
+    renderResults(result);
+    setStatus('done', 'Analysis complete');
+    document.getElementById('results-card').style.display = 'block';
+    switchTab('issues');
+    document.getElementById('results-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch(err) {
+    setStatus('error', err.message || 'Something went wrong. Please try again.');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderResults(r) {
+  const issuesList = document.getElementById('issues-list');
+
+  if (!r.issues || r.issues.length === 0) {
+    issuesList.innerHTML = `
+      <div class="no-issues">
+        <div class="check">✓</div>
+        <p>No major navbar issues detected!</p>
+      </div>`;
+  } else {
+    issuesList.innerHTML = r.issues.map(issue => `
+      <div class="issue-item">
+        <div class="issue-title">${issue.title}</div>
+        <div class="issue-detail">${issue.detail}</div>
+        <div class="screens">${(issue.screens || []).map(s => `<span class="screen-badge">${s}</span>`).join('')}</div>
+      </div>
+    `).join('');
+    if (r.notes) {
+      issuesList.innerHTML += `<div class="tip-row"><span>💡</span><span>${r.notes}</span></div>`;
+    }
+  }
+
+  document.getElementById('css-mobile').textContent  = r.mobile_css  || '/* No mobile fixes needed */';
+  document.getElementById('css-tablet').textContent  = r.tablet_css  || '/* No tablet fixes needed */';
+  document.getElementById('css-desktop').textContent = r.desktop_css || '/* No desktop fixes needed */';
+
+  const allCSS = [r.mobile_css, r.tablet_css, r.desktop_css].filter(Boolean).join('\n\n');
+  document.getElementById('css-all').textContent = allCSS || '/* No fixes needed */';
+}
+
+function copyCSS(tab) {
+  const ids = { mobile: 'css-mobile', tablet: 'css-tablet', desktop: 'css-desktop', all: 'css-all' };
+  const text = document.getElementById(ids[tab]).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#tab-' + tab + ' button');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy CSS', 1500); }
+  });
+}
+
+document.getElementById('html-input').addEventListener('input', function() {
+  if (this.value.length > 30) showFrameworkTag(detectFramework(this.value));
+});
+</script>
+</body>
+</html>
