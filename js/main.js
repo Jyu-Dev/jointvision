@@ -48,6 +48,7 @@
   const counterEl    = document.getElementById('sliderCounter');
   let currentSlide   = 0;
   let sliderInterval = null;
+  // Update counter initial value for 5 slides
 
   function goToSlide(idx) {
     slides[currentSlide].classList.remove('active');
