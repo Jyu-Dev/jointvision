@@ -42,51 +42,10 @@
     });
   });
 
-  /* ── About Image Slider (auto-advances every 4 s) ── */
-  const slides       = document.querySelectorAll('#aboutSlider .slide');
-  const dotBtns      = document.querySelectorAll('#sliderDots .dot-btn');
-  const counterEl    = document.getElementById('sliderCounter');
-  let currentSlide   = 0;
-  let sliderInterval = null;
-  // Update counter initial value for 5 slides
-
-  function goToSlide(idx) {
-    slides[currentSlide].classList.remove('active');
-    dotBtns[currentSlide].classList.remove('active');
-
-    currentSlide = (idx + slides.length) % slides.length;
-
-    slides[currentSlide].classList.add('active');
-    dotBtns[currentSlide].classList.add('active');
-
-    const n = String(currentSlide + 1).padStart(2, '0');
-    const t = String(slides.length).padStart(2, '0');
-    counterEl.textContent = `${n} / ${t}`;
-  }
-
-  function startSlider() {
-    sliderInterval = setInterval(() => {
-      goToSlide(currentSlide + 1);
-    }, 4000);
-  }
-
-  function resetSlider() {
-    clearInterval(sliderInterval);
-    startSlider();
-  }
-
-  dotBtns.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      goToSlide(i);
-      resetSlider();
-    });
-  });
-
-  startSlider();
 
   /* ── Scroll-reveal observer ── */
   const revealEls = document.querySelectorAll(
-    '.service-card, .portfolio-card, .process-step, .about-content, .about-slider-wrap, .contact-info, .contact-form-wrap'
+    '.service-card, .portfolio-card, .process-step, .about-content, .about-photo-wrap, .contact-info, .contact-form-wrap, .video-card, .experience-note'
   );
 
   revealEls.forEach(el => el.classList.add('reveal'));
